@@ -1,6 +1,8 @@
 package com.grits.authenticationservice.controller;
 
+import com.grits.authenticationservice.model.request.LoginRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
+import com.grits.authenticationservice.model.response.TokenResponse;
 import com.grits.authenticationservice.model.response.SignupResponse;
 import com.grits.authenticationservice.service.AuthService;
 import jakarta.validation.Valid;
@@ -22,5 +24,10 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@Valid @RequestBody SignupRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.signup(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }

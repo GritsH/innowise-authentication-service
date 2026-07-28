@@ -4,7 +4,9 @@ import com.grits.authenticationservice.client.UserServiceClient;
 import com.grits.authenticationservice.exception.RegistrationException;
 import com.grits.authenticationservice.mapper.AuthenticationMapper;
 import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
+import com.grits.authenticationservice.model.request.LoginRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
+import com.grits.authenticationservice.model.response.TokenResponse;
 import com.grits.authenticationservice.model.response.SignupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,9 @@ public class AuthService {
             throw new RegistrationException(ex);
         }
         return new SignupResponse(keycloakId);
+    }
+
+    public TokenResponse login(LoginRequest request) {
+        return keycloakService.login(request);
     }
 }

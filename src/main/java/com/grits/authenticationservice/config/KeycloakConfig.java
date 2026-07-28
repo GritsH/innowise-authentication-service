@@ -6,6 +6,7 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestClient;
 
 @Configuration
 public class KeycloakConfig {
@@ -29,5 +30,10 @@ public class KeycloakConfig {
                 .password(password)
                 .grantType(OAuth2Constants.PASSWORD)
                 .build();
+    }
+
+    @Bean
+    public RestClient keycloakRestClient() {
+        return RestClient.builder().build();
     }
 }
