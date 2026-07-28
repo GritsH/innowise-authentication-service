@@ -42,7 +42,6 @@ public class KeycloakService {
 
     public UUID createUser(SignupRequest request) {
         UserRepresentation user = getUserRepresentation(request);
-
         Response response = keycloak
                 .realm(realm)
                 .users()
@@ -65,6 +64,7 @@ public class KeycloakService {
         form.add("username", request.getEmail());
         form.add("password", request.getPassword());
         form.add("grant_type", "password");
+
         try {
             return keycloakRestClient.post()
                     .uri(serverUrl + "/realms/" + realm + "/protocol/openid-connect/token")
@@ -72,7 +72,6 @@ public class KeycloakService {
                     .body(form)
                     .retrieve()
                     .body(TokenResponse.class);
-
         } catch (HttpClientErrorException.Unauthorized e) {
             throw new InvalidCredentialsException();
         }

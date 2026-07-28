@@ -6,8 +6,8 @@ import com.grits.authenticationservice.mapper.AuthenticationMapper;
 import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
 import com.grits.authenticationservice.model.request.LoginRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
-import com.grits.authenticationservice.model.response.TokenResponse;
 import com.grits.authenticationservice.model.response.SignupResponse;
+import com.grits.authenticationservice.model.response.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
