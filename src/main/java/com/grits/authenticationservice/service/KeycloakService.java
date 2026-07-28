@@ -1,10 +1,12 @@
 package com.grits.authenticationservice.service;
 
+import com.grits.authenticationservice.client.KeycloakClient;
 import com.grits.authenticationservice.exception.InvalidCredentialsException;
 import com.grits.authenticationservice.exception.UserAlreadyExistsException;
 import com.grits.authenticationservice.model.request.LoginRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
 import com.grits.authenticationservice.model.response.TokenResponse;
+import feign.FeignException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -13,12 +15,9 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,10 +28,7 @@ public class KeycloakService {
 
     private final Keycloak keycloak;
 
-    private final RestClient keycloakRestClient;
-
-    @Value("${keycloak.server-url}")
-    private String serverUrl;
+    private final KeycloakClient keycloakClient;
 
     @Value("${keycloak.realm}")
     private String realm;
@@ -66,13 +62,8 @@ public class KeycloakService {
         form.add("grant_type", "password");
 
         try {
-            return keycloakRestClient.post()
-                    .uri(serverUrl + "/realms/" + realm + "/protocol/openid-connect/token")
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                    .body(form)
-                    .retrieve()
-                    .body(TokenResponse.class);
-        } catch (HttpClientErrorException.Unauthorized e) {
+            return keycloakClient.login(realm, form);
+        } catch (FeignException.Unauthorized e) {
             throw new InvalidCredentialsException();
         }
     }

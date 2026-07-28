@@ -13,5 +13,4 @@ public interface UserServiceClient {
 
     @PostMapping("/v1/users")
     void createUser(@RequestBody InternalCreateUserRequest request);
-
 }
