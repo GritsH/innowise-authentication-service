@@ -1,7 +1,7 @@
 package com.grits.authenticationservice.mapper;
 
-import com.grits.authenticationservice.model.InternalCreateUserRequest;
-import com.grits.authenticationservice.model.SignupRequest;
+import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
+import com.grits.authenticationservice.model.request.SignupRequest;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

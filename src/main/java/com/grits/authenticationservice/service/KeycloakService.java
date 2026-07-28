@@ -1,7 +1,7 @@
 package com.grits.authenticationservice.service;
 
 import com.grits.authenticationservice.exception.UserAlreadyExistsException;
-import com.grits.authenticationservice.model.SignupRequest;
+import com.grits.authenticationservice.model.request.SignupRequest;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;

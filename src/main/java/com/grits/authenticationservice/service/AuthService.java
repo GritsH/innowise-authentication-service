@@ -3,9 +3,9 @@ package com.grits.authenticationservice.service;
 import com.grits.authenticationservice.client.UserServiceClient;
 import com.grits.authenticationservice.exception.RegistrationException;
 import com.grits.authenticationservice.mapper.AuthenticationMapper;
-import com.grits.authenticationservice.model.InternalCreateUserRequest;
-import com.grits.authenticationservice.model.SignupRequest;
-import com.grits.authenticationservice.model.SignupResponse;
+import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
+import com.grits.authenticationservice.model.request.SignupRequest;
+import com.grits.authenticationservice.model.response.SignupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.grits.authenticationservice.controller;
 
-import com.grits.authenticationservice.model.SignupRequest;
-import com.grits.authenticationservice.model.SignupResponse;
+import com.grits.authenticationservice.model.request.SignupRequest;
+import com.grits.authenticationservice.model.response.SignupResponse;
 import com.grits.authenticationservice.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

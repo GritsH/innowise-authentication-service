@@ -1,4 +1,4 @@
-package com.grits.authenticationservice.model;
+package com.grits.authenticationservice.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

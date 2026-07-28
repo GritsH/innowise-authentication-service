@@ -1,6 +1,6 @@
 package com.grits.authenticationservice.client;
 
-import com.grits.authenticationservice.model.InternalCreateUserRequest;
+import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

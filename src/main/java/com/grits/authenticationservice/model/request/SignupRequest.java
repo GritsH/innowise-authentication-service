@@ -1,4 +1,4 @@
-package com.grits.authenticationservice.model;
+package com.grits.authenticationservice.model.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
