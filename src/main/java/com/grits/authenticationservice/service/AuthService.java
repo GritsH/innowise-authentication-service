@@ -1,0 +1,38 @@
+package com.grits.authenticationservice.service;
+
+import com.grits.authenticationservice.client.UserServiceClient;
+import com.grits.authenticationservice.exception.RegistrationException;
+import com.grits.authenticationservice.mapper.AuthenticationMapper;
+import com.grits.authenticationservice.model.InternalCreateUserRequest;
+import com.grits.authenticationservice.model.SignupRequest;
+import com.grits.authenticationservice.model.SignupResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    private final KeycloakService keycloakService;
+
+    private final UserServiceClient userServiceClient;
+
+    private final AuthenticationMapper mapper;
+
+    public SignupResponse signup(SignupRequest request) {
+        UUID keycloakId = keycloakService.createUser(request);
+        keycloakService.assignRole(keycloakId, "USER");
+
+        InternalCreateUserRequest internalCreateUserRequest = mapper.toUserServiceRequest(request);
+        internalCreateUserRequest.setKeycloakUserId(keycloakId);
+        try {
+            userServiceClient.createUser(internalCreateUserRequest);
+        } catch (Exception ex) {
+            keycloakService.deleteUser(keycloakId);
+            throw new RegistrationException(ex);
+        }
+        return new SignupResponse(keycloakId);
+    }
+}
