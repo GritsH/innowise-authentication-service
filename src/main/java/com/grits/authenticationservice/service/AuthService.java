@@ -1,7 +1,7 @@
 package com.grits.authenticationservice.service;
 
 import com.grits.authenticationservice.client.UserServiceClient;
-import com.grits.authenticationservice.exception.RegistrationException;
+import com.grits.authenticationservice.exception.SignupException;
 import com.grits.authenticationservice.mapper.AuthenticationMapper;
 import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
 import com.grits.authenticationservice.model.request.LoginRequest;
@@ -33,7 +33,7 @@ public class AuthService {
             userServiceClient.createUser(internalCreateUserRequest);
         } catch (Exception ex) {
             keycloakService.deleteUser(keycloakId);
-            throw new RegistrationException(ex);
+            throw new SignupException(ex);
         }
         return new SignupResponse(keycloakId);
     }

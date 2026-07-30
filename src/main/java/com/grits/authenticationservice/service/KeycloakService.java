@@ -1,6 +1,7 @@
 package com.grits.authenticationservice.service;
 
 import com.grits.authenticationservice.client.KeycloakClient;
+import com.grits.authenticationservice.exception.GlobalServiceException;
 import com.grits.authenticationservice.exception.InvalidCredentialsException;
 import com.grits.authenticationservice.exception.UserAlreadyExistsException;
 import com.grits.authenticationservice.model.request.LoginRequest;
@@ -15,6 +16,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -38,16 +40,13 @@ public class KeycloakService {
 
     public UUID createUser(SignupRequest request) {
         UserRepresentation user = getUserRepresentation(request);
-        Response response = keycloak
-                .realm(realm)
-                .users()
-                .create(user);
+        Response response = keycloak.realm(realm).users().create(user);
 
         if (response.getStatus() == 409) {
             throw new UserAlreadyExistsException(request.getEmail());
         }
         if (response.getStatus() != 201) {
-            throw new RuntimeException("Failed creating Keycloak user");
+            throw new GlobalServiceException("Failed creating Keycloak user", HttpStatus.valueOf(response.getStatus()));
         }
 
         String id = CreatedResponseUtil.getCreatedId(response);
