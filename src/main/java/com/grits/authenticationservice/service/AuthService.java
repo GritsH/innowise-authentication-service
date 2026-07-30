@@ -23,7 +23,7 @@ public class AuthService {
 
     private final AuthenticationMapper mapper;
 
-    public SignupResponse signup(SignupRequest request) {
+    public SignupResponse signUp(SignupRequest request) {
         UUID keycloakId = keycloakService.createUser(request);
         keycloakService.assignRole(keycloakId, "USER");
 
