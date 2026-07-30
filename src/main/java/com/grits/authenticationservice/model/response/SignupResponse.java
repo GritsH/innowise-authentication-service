@@ -1,11 +1,13 @@
 package com.grits.authenticationservice.model.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class SignupResponse {
 

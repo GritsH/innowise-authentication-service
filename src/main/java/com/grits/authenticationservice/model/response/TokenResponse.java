@@ -1,9 +1,11 @@
 package com.grits.authenticationservice.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class TokenResponse {
 
     @JsonProperty("access_token")
