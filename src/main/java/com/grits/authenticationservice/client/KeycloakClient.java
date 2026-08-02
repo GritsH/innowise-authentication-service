@@ -18,5 +18,5 @@ public interface KeycloakClient {
             value = "/realms/{realm}/protocol/openid-connect/token",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
-    TokenResponse login(@PathVariable String realm, @RequestBody MultiValueMap<String, String> form);
+    TokenResponse getKeycloakToken(@PathVariable String realm, @RequestBody MultiValueMap<String, String> form);
 }

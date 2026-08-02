@@ -1,6 +1,7 @@
 package com.grits.authenticationservice.controller;
 
 import com.grits.authenticationservice.model.request.LoginRequest;
+import com.grits.authenticationservice.model.request.RefreshTokenRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
 import com.grits.authenticationservice.model.response.SignupResponse;
 import com.grits.authenticationservice.model.response.TokenResponse;
@@ -29,5 +30,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponse> refresh(@Valid @RequestBody RefreshTokenRequest request) {
+        return ResponseEntity.ok(authService.refresh(request));
     }
 }

@@ -5,6 +5,7 @@ import com.grits.authenticationservice.exception.SignupException;
 import com.grits.authenticationservice.mapper.AuthenticationMapper;
 import com.grits.authenticationservice.model.request.InternalCreateUserRequest;
 import com.grits.authenticationservice.model.request.LoginRequest;
+import com.grits.authenticationservice.model.request.RefreshTokenRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
 import com.grits.authenticationservice.model.response.SignupResponse;
 import com.grits.authenticationservice.model.response.TokenResponse;
@@ -40,5 +41,9 @@ public class AuthService {
 
     public TokenResponse login(LoginRequest request) {
         return keycloakService.login(request);
+    }
+
+    public TokenResponse refresh(RefreshTokenRequest request) {
+        return keycloakService.refresh(request);
     }
 }

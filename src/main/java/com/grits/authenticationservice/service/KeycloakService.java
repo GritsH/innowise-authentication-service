@@ -5,6 +5,7 @@ import com.grits.authenticationservice.exception.GlobalServiceException;
 import com.grits.authenticationservice.exception.InvalidCredentialsException;
 import com.grits.authenticationservice.exception.UserAlreadyExistsException;
 import com.grits.authenticationservice.model.request.LoginRequest;
+import com.grits.authenticationservice.model.request.RefreshTokenRequest;
 import com.grits.authenticationservice.model.request.SignupRequest;
 import com.grits.authenticationservice.model.response.TokenResponse;
 import feign.FeignException;
@@ -61,7 +62,20 @@ public class KeycloakService {
         form.add("grant_type", "password");
 
         try {
-            return keycloakClient.login(realm, form);
+            return keycloakClient.getKeycloakToken(realm, form);
+        } catch (FeignException.Unauthorized e) {
+            throw new InvalidCredentialsException();
+        }
+    }
+
+    public TokenResponse refresh(RefreshTokenRequest request) {
+        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
+        form.add("client_id", clientId);
+        form.add("grant_type", "refresh_token");
+        form.add("refresh_token", request.getRefreshToken());
+
+        try {
+            return keycloakClient.getKeycloakToken(realm, form);
         } catch (FeignException.Unauthorized e) {
             throw new InvalidCredentialsException();
         }
